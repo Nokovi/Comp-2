@@ -1,9 +1,17 @@
-// Compulsory 2.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+///<PropertyGroup>
+///<GenerateDocumentationFile>true< / GenerateDocumentationFile>
+///</ PropertyGroup>
 
 #include <iostream>
 using namespace std;
 
+/// <summary>
+/// Uses a recursive function to find the factorial of a number.
+/// Because a factorial n! = n*(n-1)*(n-2)*(n-3).... we can have it be recursive and just subtract 1 from the number we're multiplying the number with.
+/// it will do so until it reaches 0, then it returns 1 and it starts multiplying instead of creating more recursiveness.
+/// </summary>
+/// <param name="number"></param>
+/// <returns></returns>
 long factorial(long number) {
 	
 	cout << "before" << number << "\n";
@@ -13,14 +21,17 @@ long factorial(long number) {
 	}
 	else {
 		number = number * factorial(number - 1);
-		//because a factorial n! = n*(n-1)*(n-2)*(n-3).... we can have it be recursive and just subtract 1 from the number we're multiplying the number with.
-		//it will do so until it reaches 0, then it returns 1 and it starts multiplying instead of creating more recursiveness.
 		cout << "after" << number << "\n";
 	}
 
 	return number;
 }
-
+/// <summary>
+/// Uses the numbers from the array eq2 to either multiply, add, derivate or subtract, depending on what type user chose in main.
+/// </summary>
+/// <param name="eq2"></param>
+/// <param name="type"></param>
+/// <returns></returns>
 double polynomial(double eq2[8], char type) {
 	cout << "The solution is: \n";
 	if (type == 'd') {
@@ -55,12 +66,12 @@ double polynomial(double eq2[8], char type) {
 	double solution[4] = { 0,0,0,0 };
 	if (type == 'a') {
 		for (int i = 0; i < 4; i++) {
-			solution[i] = eq2[i] + eq2[4 + i];
+			solution[3-i] = eq2[i] + eq2[4 + i];
 		}
 	}
 	if (type == 's') {
 		for (int i = 0; i < 4; i++) {
-			solution[i] = eq2[i] - eq2[4 + i];
+			solution[3-i] = eq2[i] - eq2[4 + i];
 		}
 	}
 
@@ -73,6 +84,12 @@ double polynomial(double eq2[8], char type) {
 	return 0;
 }
 
+/// <summary>
+/// prints a set of equations (+, -, *, /) using n1 and n2.
+/// </summary>
+/// <param name="n1"></param>
+/// <param name="n2"></param>
+/// <returns></returns>
 int calculator(double n1, double n2) {
 	//reason I'm doing all of these at once is just because I don't want to make another menu system.
 	//Or make 4 different functions for these things.
@@ -83,7 +100,10 @@ int calculator(double n1, double n2) {
 	return 0;
 }
 
-
+/// <summary>
+/// main function. basic menu system and inputs.
+/// </summary>
+/// <returns></returns>
 int main()
 {
 	cout << "Calculator program.\nPlease input number to select an option.\n 1: Factorial \n 2: Polynomial \n 3: Simple math equations \n 4: Exit\n";
@@ -113,28 +133,19 @@ int main()
 				cout << "please only use a, s, or m.";
 				return 0;
 			}
-			if (type == 'd') {
-				cout << "Please input the four constants of the equation you want the derivate of (ax^3 + bx^2 + cx + d)\n";
-				cin >> eq1[0] >> eq1[1] >> eq1[2] >> eq1[3];
-				if (!cin) {
-					cout << "Oops! Please write only numbers into the equation";
-					return 0;
-				}
-				polynomial(eq1, type);
-				return 0;
-			}
-
 			cout << "Please input the four constants of the first equation (ax^3 + bx^2 + cx + d)\n";
 			cin >> eq1[0] >> eq1[1] >> eq1[2] >> eq1[3];
 			if (!cin) {
 				cout << "Oops! Please write only numbers into the equation";
 				return 0;
 			}
-			cout << "Please input the four constants of the second equation. \n";
-			cin >> eq1[4] >> eq1[5] >> eq1[6] >> eq1[7];
-			if (!cin) {
-				cout << "Oops! Please write only numbers into the equation";
-				return 0;
+			if (type != 'd') {
+				cout << "Please input the four constants of the second equation. \n";
+				cin >> eq1[4] >> eq1[5] >> eq1[6] >> eq1[7];
+				if (!cin) {
+					cout << "Oops! Please write only numbers into the equation";
+					return 0;
+				}
 			}
 			polynomial(eq1, type);
 			break;
